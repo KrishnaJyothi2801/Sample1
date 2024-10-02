@@ -4,34 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>GitHub Demo Project</title>
+    <title>Simple To-Do List</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+            const todoInput = document.getElementById('todo-input');
+            const todoList = document.getElementById('todo-list');
+
+            document.getElementById('add-btn').addEventListener('click', function () {
+                const taskText = todoInput.value.trim();
+                if (taskText !== '') {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'flex justify-between items-center bg-gray-200 p-3 rounded-lg mb-2';
+                    
+                    const taskSpan = document.createElement('span');
+                    taskSpan.textContent = taskText;
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.textContent = 'Remove';
+                    removeBtn.className = 'bg-red-500 text-white px-3 py-1 rounded-lg';
+                    removeBtn.addEventListener('click', function () {
+                        listItem.remove();
+                    });
+                    
+                    listItem.appendChild(taskSpan);
+                    listItem.appendChild(removeBtn);
+                    todoList.appendChild(listItem);
+                    todoInput.value = '';
+                }
+            });
+        });
+    </script>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
-    <!-- Header Section -->
-    <header class="bg-blue-500">
-        <div class="container mx-auto text-center py-8">
-            <h1 class="text-white text-5xl font-bold">GitHub Demo Project</h1>
-            <p class="text-blue-200 mt-2">A simple project demo using Tailwind CSS</p>
-        </div>
-    </header>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal flex justify-center items-center h-screen">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h1 class="text-3xl font-bold text-center mb-6">To-Do List</h1>
 
-    <!-- Main Content Section -->
-    <main class="container mx-auto mt-8">
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-2xl font-semibold mb-4">Project Overview</h2>
-            <p class="text-gray-700 leading-relaxed">
-                This is a basic demo project for a GitHub repository. It demonstrates the use of an HTML file and a CSS file 
-                with Tailwind CSS framework for styling.
-            </p>
+        <div class="flex mb-4">
+            <input id="todo-input" type="text" class="flex-grow border border-gray-300 p-2 rounded-lg" placeholder="Enter a new task">
+            <button id="add-btn" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Add</button>
         </div>
-    </main>
 
-    <!-- Footer Section -->
-    <footer class="bg-blue-500 mt-8 py-4">
-        <div class="container mx-auto text-center">
-            <p class="text-white">Made with ❤️ by Your Name</p>
-        </div>
-    </footer>
+        <ul id="todo-list" class="list-none">
+            <!-- Tasks will be dynamically added here -->
+        </ul>
+    </div>
 </body>
 </html>
